@@ -1,69 +1,56 @@
-//
-//  DetalleListViewController.swift
-//  RestoControl
-//
-//  Created by Carlos Velasquez on 24/06/24.
-//
-
 import UIKit
 import SDWebImage
 import FirebaseDatabase
 
-import UIKit
-
 class DetalleListViewController: UIViewController {
+
+    // MARK: - Properties
 
     var selectedMineral: Mineral?
     var MineralId: String?
-    
     let databaseRef = Database.database().reference()
+    var presenter: UIViewPropertyAnimator?
 
-    //BAR-NAVIGATOR
+    // MARK: - Outlets
+
     @IBOutlet weak var detallBar: UINavigationItem!
-    
-    //LABEL
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var subtypeLabel: UILabel!
     @IBOutlet weak var formulaLabel: UILabel!
     @IBOutlet weak var useLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var modalView: UIView! // Vista modal para edición
 
-    @IBOutlet weak var modalView: UIView!
-    //@IBOutlet weak var handleArea: UIView!
-
-    var presenter: UIViewPropertyAnimator?
-    
-  
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupModalView()
-        //setupGesture()
 
         if let mineral = selectedMineral {
-                    detallBar.title = mineral.name
-                    typeLabel.text = mineral.type
-                    subtypeLabel.text = mineral.subtype
-                    formulaLabel.text = mineral.formula
-                    useLabel.text = mineral.use
-                    if let imageUrl = URL(string: mineral.imagenURL) {
-                        imageView.sd_setImage(with: imageUrl, completed: nil)
-                    }
-                    MineralId = mineral.id
-                }
+            // Configurar la vista con los datos del mineral seleccionado
+            detallBar.title = mineral.name
+            typeLabel.text = mineral.type
+            subtypeLabel.text = mineral.subtype
+            formulaLabel.text = mineral.formula
+            useLabel.text = mineral.use
+            if let imageUrl = URL(string: mineral.imagenURL) {
+                imageView.sd_setImage(with: imageUrl, completed: nil)
             }
-    
+            MineralId = mineral.id
+        }
+    }
+
+    // MARK: - Setup
 
     private func setupModalView() {
+        // Configurar la apariencia de la vista modal
         modalView.layer.cornerRadius = 12
         modalView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
 
-    /*private func setupGesture() {
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        handleArea.addGestureRecognizer(panGesture)
-    }*/
+    // MARK: - Gesture Handling
 
     @objc func handlePan(_ recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: modalView)

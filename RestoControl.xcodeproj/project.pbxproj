@@ -88,8 +88,8 @@
 				26B226312C2B3BAF00ADBA77 /* CrearUsuarioViewController.swift */,
 				E58D22D22B27049D00FA7A5C /* LoginViewController.swift */,
 				E51AFB272B2720220098426B /* MineralListViewController.swift */,
-				E5F114972B28D7440022AC0B /* AddMineralViewController.swift */,
 				E5F114902B289B350022AC0B /* DetalleMineralViewController.swift */,
+				E5F114972B28D7440022AC0B /* AddMineralViewController.swift */,
 				26AD1F062C234D6C001F13E5 /* ListViewController.swift */,
 				26B3C7332C29FFF50001DAC8 /* DetalleListViewController.swift */,
 			);
